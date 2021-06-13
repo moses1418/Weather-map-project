@@ -27,10 +27,14 @@ function addGeacoderToMap(geocoder){
     geocoder.on("result", function (event) {
         console.log(event.result.place_name);
         // console.log(event);
-        // console.log(event.result.geometry.coordinates);
+        console.log(event.result.geometry.coordinates);
 
         setMarker(event.result.geometry.coordinates);
         marker.setPopup(displayPopup(event.result.place_name));
+
+        fetchForecast(event.result.geometry.coordinates);
+
+
     });
 
 }
@@ -51,6 +55,9 @@ function mapEvent() {
     map.on("click", function (event) {
         setMarker(event.lngLat);
         console.log(event.lngLat);
+
+        fetchForecast([event.lngLat.lng, event.lngLat.lat]);
+
     });
 }
 
