@@ -21,6 +21,8 @@ function setGeocoder(){
     })
 }
 
+document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+
 function addGeacoderToMap(geocoder){
     map.addControl(geocoder);
 

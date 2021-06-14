@@ -1,31 +1,43 @@
 
 
-function buildDOMObjects (forecastData) {
+function buildDOMObjects (forecastData, location) {
+    $("#forecast-container").empty();
     console.log(forecastData);
+    console.log(location);
     for (let i = 0; i < forecastData.length; i++) {
         let temp = forecastData[i].main.temp;
         let feels = forecastData[i].main.feels_like;
         let max = forecastData[i].main.temp_max;
         let low = forecastData[i].main.temp_min;
         let des = forecastData[i].weather[0].description;
-        $('#forecast').append(`
-<div class=“card” style="width: 18rem;">
-        <div class=“card-body”>
-            <h5 class=“card-title”>Card title</h5>
-            <p class=“card-text”> ${temp}
+        let loc = location.name;
+
+        let date = forecastData[i].dt;
+        date = new Date(date * 1000);
+        let formattedDate = new Date(date).toDateString();
+
+        let iconCode = forecastData[i].weather[0].icon
+
+        $('#forecast-container').append(`
+<div class="card col-2 mx-1 p-0" style="width: 18rem; background-color: #323544">
+        <h5 class="d-flex justify-content-center" style="background: rgba(0,0,0,0.1)">${loc}</h5>  
+        <div class="card-body d-flex justify-content-center flex-wrap">             
+            <div class="card-title"><P>${formattedDate}</P></div>
+            <p class="card-text"> current: ${temp}
             <br>
-            ${des}
+            <img src="http://openweathermap.org/img/w/${iconCode}.png" class="d-flex align-self-center"/>
             <br>
-            feels like ${feels}
+            feels like: ${feels}
             <br>
-            high bru: ${max}
+            high bruh: ${max}
             <br>
-            low bru: ${low}
+            low bruh: ${low}
             <br>
             </p>
         </div>
 </div> `)
     }
 }
+
 
 
